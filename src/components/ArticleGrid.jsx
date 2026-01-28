@@ -6,7 +6,7 @@ export default function ArticleGrid({ preferences }) {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    fetch("/articles.json")
+    fetch("newsly/articles.json")
       .then((res) => res.json())
       .then((data) => setArticles(data));
   }, []);
