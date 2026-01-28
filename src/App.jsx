@@ -1,10 +1,10 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import UpdatePreferences from "./pages/UpdatePreferences";
+import UpdatePreferences from "./pages/UpdatePreferences"
 
-const App = () => {
+function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-4">Newsly 📰</h1>
@@ -14,14 +14,17 @@ const App = () => {
         <Link to="/register" className="mr-4">Register</Link>
         <Link to="/update-preferences">Update Preferences</Link>
       </nav>
+
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/update-preferences" element={<UpdatePreferences />} />
       </Routes>
+
     </div>
   );
-};
+}
 
 export default App;
