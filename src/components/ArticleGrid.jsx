@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
-import { getPriority } from "../utils/priority";
+import { getPriority } from "../utils/priority.js";
 
 export default function ArticleGrid({ preferences }) {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    fetch("newsly/articles.json")
+    fetch("/newsly/articles.json")
       .then((res) => res.json())
       .then((data) => setArticles(data));
   }, []);

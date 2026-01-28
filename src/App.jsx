@@ -1,32 +1,27 @@
-import { useState, useEffect } from "react";
-import ArticleGrid from "./components/ArticleGrid";
-import PreferencesPanel from "./components/PreferencesPanel";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import UpdatePreferences from "./pages/UpdatePreferences";
 
-const DEFAULT_PREFS = {
-  ai: 3,
-  security: 2,
-  startups: 1,
-};
-
-function App() {
-  const [preferences, setPreferences] = useState(() => {
-    const saved = localStorage.getItem("newsly_prefs");
-    return saved ? JSON.parse(saved) : DEFAULT_PREFS;
-  });
-
-  useEffect(() => {
-    localStorage.setItem("newsly_prefs", JSON.stringify(preferences));
-  }, [preferences]);
-
+const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-4">Newsly 📰</h1>
-
-      <PreferencesPanel preferences={preferences} onChange={setPreferences} />
-
-      <ArticleGrid preferences={preferences} />
+      <nav className="mb-4">
+        <Link to="/" className="mr-4">Home</Link>
+        <Link to="/login" className="mr-4">Login</Link>
+        <Link to="/register" className="mr-4">Register</Link>
+        <Link to="/update-preferences">Update Preferences</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/update-preferences" element={<UpdatePreferences />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
