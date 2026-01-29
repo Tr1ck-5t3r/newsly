@@ -1,69 +1,35 @@
-import axios from 'axios';
+import api from "./apiInstance";
 
-const API_URL = import.meta.env.VITE_API_URL;
-
-// Function to register a new user
+/* Register */
 export const registerUser = async (username, password) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/auth/register`, {
-      username,
-      password,
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error registering user:', error);
-    throw error;
-  }
+  const res = await api.post("/api/auth/register", {
+    username,
+    password,
+  });
+  return res.data;
 };
 
-// Function to log in a user
+/* Login */
 export const loginUser = async (username, password) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/auth/login`, {
-      username,
-      password,
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error logging in user:', error);
-    throw error;
-  }
+  const res = await api.post("/api/auth/login", {
+    username,
+    password,
+  });
+
+  localStorage.setItem("authToken", res.data.token);
+  return res.data;
 };
 
-// Function to update user preferences
-export const updateUserPreferences = async (token, preferences) => {
-  try {
-    const response = await axios.put(
-      `${API_URL}/api/preferences`,
-      { preferences },
-      {
-        headers: {
-          'x-auth-token': token,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error updating preferences:', error);
-    throw error;
-  }
+/* Update preferences */
+export const updateUserPreferences = async (preferences) => {
+  const res = await api.put("/api/preferences", { preferences });
+  return res.data;
 };
 
-// Function to fetch articles
+/* Fetch articles ✅ */
 export const fetchArticles = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/api/articles/fetch-articles`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching articles:', error);
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-    } else if (error.request) {
-      console.error('No response received:', error.request);
-    } else {
-      console.error('Error setting up request:', error.message);
-    }
-    throw error;
-  }
+  const res = await api.get("/api/articles/fetch-articles");
+  //console.log("Fetched articles:", res.data);
+  // Safety: always return array
+  return Array.isArray(res.data) ? res.data : [];
 };
