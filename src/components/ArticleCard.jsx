@@ -1,5 +1,5 @@
 export default function ArticleCard({ article }) {
-  console.log("Rendering ArticleCard with article:", article);
+  //console.log("Rendering ArticleCard with article:", article);
   // Map priority to grid spans
   // Priority 3+ (Featured): full width (6 cols)
   // Priority 2 (Standard): half width (3 cols)
@@ -21,7 +21,7 @@ export default function ArticleCard({ article }) {
           <img
             src={article.image == "missing" ? "/not-found.png" : article.image}
             alt={article.headline}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500  group-hover:scale-105"
           />
         </div>
       )}
